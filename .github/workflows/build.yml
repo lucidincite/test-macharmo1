@@ -1,0 +1,34 @@
+name: Build MacMonium
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+        
+    - name: Build Xcode Project
+      run: |
+        # Build the application
+        xcodebuild -project Macmonium.xcodeproj -scheme LidAngleSensor -configuration Release build CONFIGURATION_BUILD_DIR=${{ github.workspace }}/build
+        
+    - name: Package Application
+      run: |
+        cd ${{ github.workspace }}/build
+        zip -r MacMonium.zip "LidAngleSensor.app"
+        
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: MacMonium-App
+        path: ${{ github.workspace }}/build/MacMonium.zip
