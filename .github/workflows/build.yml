@@ -25,7 +25,7 @@ jobs:
     - name: Package Application
       run: |
         cd ${{ github.workspace }}/build
-        zip -r MacMonium.zip "LidAngleSensor.app"
+        zip -r MacMonium.zip *.app
         
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
