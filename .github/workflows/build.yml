@@ -20,7 +20,7 @@ jobs:
     - name: Build Xcode Project
       run: |
         # Build the application
-        xcodebuild -project Macmonium.xcodeproj -scheme LidAngleSensor -configuration Release build CONFIGURATION_BUILD_DIR=${{ github.workspace }}/build
+        xcodebuild -project Macmonium.xcodeproj -scheme LidAngleSensor -configuration Release CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build CONFIGURATION_BUILD_DIR=${{ github.workspace }}/build
         
     - name: Package Application
       run: |
